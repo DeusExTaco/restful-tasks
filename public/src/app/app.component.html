@@ -10,6 +10,12 @@
 </head>
 <body>
     <div class="container">
+      <div *ngFor="let error of errors"> 
+          {{ error }}
+      </div>
+
+      {{ success }}
+
       <div class="border p-2 m-2">
           <h1>Restful Tasks API</h1>
           <button (click)="onButtonClickGetAll()">Click me!</button>
@@ -39,6 +45,7 @@
           <button (click)="onButtonClickCancelEdit()">Cancel</button>
       </div>
       
+
 
       <div class="border p-2 m-2">
           <p>Create New Record</p>

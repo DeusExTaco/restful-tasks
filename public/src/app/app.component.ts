@@ -26,6 +26,9 @@ export class AppComponent implements OnInit {
   editId: any = '';
   showDetails: boolean;
 
+  errors = [];
+  success = '';
+
   constructor(private HTTP: HttpService) {
   }
 
@@ -59,6 +62,7 @@ export class AppComponent implements OnInit {
     const observable = this.HTTP.deleteTask(id);
     observable.subscribe(data => {
       this.getTasks();
+      this.success = 'successful delete';
     });
   }
 
@@ -68,10 +72,19 @@ export class AppComponent implements OnInit {
 
   createTask(task) {
     const observable = this.HTTP.createTask(task);
-    observable.subscribe(data => {
+    observable.subscribe((data: any) => {
+      console.log(data);
       this.getTasks();
+      this.newTask = {title: '', desc: ''};
+      if (data.err) {
+        console.log('this was an error', data);
+        this.errors = data.errors;
+      } else {
+        console.log('this was a success', data);
+        this.success = 'you created a message';
+      }
     });
-    this.newTask = {title: '', desc: ''};
+
   }
 
   onButtonClickCreate(): void {
