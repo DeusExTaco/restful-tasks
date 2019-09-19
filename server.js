@@ -8,13 +8,12 @@ let app = express();
 
 // load up parser.json to read json posts in req.body
 app.use(parser.json())
-   .use(parser.urlencoded({ extended: true }))
-   .use(express.static(path.join(__dirname, "/public/dist/public")));
+    .use(parser.urlencoded({ extended: true }))
+    .use(express.static(path.join(__dirname, "/public/dist/public")));
 
-
+// static content must go above routes
 require('./server/config/database.js'); // connects database and loads models
 require('./server/config/routes.js')(app); // runs the routes function, passes app to routes
-
 
 // app.listen
 app.listen(8003, function(){

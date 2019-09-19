@@ -12,10 +12,13 @@
         <li *ngFor="let task of tasks">{{ task.title }} - {{ task.desc }}
             <button (click)="onButtonClickUpdate(task._id, task)">Edit</button>
             <button (click)="onButtonClickDelete(task._id)">Delete</button>
-            <button (click)="onButtonClickGetOne(task._id)">Details</button>
+            <!-- <button (click)="onButtonClickGetOne(task._id)">Details</button> -->
+            <button [routerLink]="['/getOne/', task._id]">Details</button>
         </li>
         </ul>
     </div>
+    
+    <router-outlet></router-outlet>
 
     <app-task *ngIf="showDetails == true" [onButtonClickGetOne]="single"></app-task>
 
