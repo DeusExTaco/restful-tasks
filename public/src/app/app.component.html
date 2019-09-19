@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Tasks API</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container">
+      <div class="border p-2 m-2">
+          <h1>Restful Tasks API</h1>
+          <button (click)="onButtonClickGetAll()">Click me!</button>
+          <ul >
+            <li *ngFor="let task of tasks">{{ task.title }} - {{ task.desc }}
+              <button (click)="onButtonClickUpdate(task._id, task)">Edit</button>
+              <button (click)="onButtonClickDelete(task._id)">Delete</button>
+              <button (click)="onButtonClickGetOne(task._id)">Details</button>
+            </li>
+          </ul>
+      </div>
+  
+      <app-task *ngIf="showDetails == true" [onButtonClickGetOne]="single"></app-task>
+
+      <div *ngIf="showForm == true" class="border p-2 m-2">
+          <p>Edit Record</p>
+          <form (submit)="updateTask(editId, editedTask)">
+              <p>{{ editedTask | json }}</p>
+              <label>Edit title: 
+                  <input type="text" name="editedTask.title" [(ngModel)] = "editedTask.title">
+              </label>
+              <label>Edit description: 
+                  <input type="text" name="editedTask.desc" [(ngModel)] = "editedTask.desc">
+              </label>
+              <input type="submit" value="Submit">
+          </form>
+          <button (click)="onButtonClickCancelEdit()">Cancel</button>
+      </div>
+      
+
+      <div class="border p-2 m-2">
+          <p>Create New Record</p>
+          <form (submit)="onButtonClickCreate()">
+              <p>{{ newTask | json }}</p>
+              <label>Task title: 
+                  <input type="text" name="newTask.title" [(ngModel)] = "newTask.title">
+              </label>
+              <label>Task description: 
+                  <input type="text" name="newTask.desc" [(ngModel)] = "newTask.desc">
+              </label>
+              <input type="submit" value="Create Task">
+          </form>
+      </div>
+
+    </div>
+</body>
+</html>
