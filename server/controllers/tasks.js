@@ -10,6 +10,7 @@ module.exports = {
     },
     show(req, res) {
       Task.findById(req.params.id)
+        .sort({createAt: -1})
         .then(task => res.json(task))
         .catch(errorHandler.bind(res));
     },
